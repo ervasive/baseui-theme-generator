@@ -3,7 +3,7 @@ import { validatePalette } from "../src/index";
 // 1. Theme generation
 // 2. Palette generation
 //   - Validate provided palette (fail on invalid palette or recover with some
-//     defaults?)
+//     defaults?) [DONE]
 //   - Generate palette colors from palette (mono[700]: val => mono700: val)
 //     - if instead of an object we have a color string generate color variants
 //       automatically (check if provided color string is valid)
