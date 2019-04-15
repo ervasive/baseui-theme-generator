@@ -1,73 +1,23 @@
 // @flow
 
 import validate from "./paletteValidator";
-import colorsGenerator from "./colorsGenerator";
+import generate from "./paletteGenerator";
 
-import {
-  type PaletteT,
-  type ColorsT,
-  type NativePaletteColorsT
-} from "./types";
-
-// TODO: naming
-export const generateNativePaletteColors = (
-  palette: PaletteT,
-  {
-    contrast,
-    hueOffset,
-    numberOfColors
-  }: { contrast: number, hueOffset: number, numberOfColors: number }
-): NativePaletteColorsT => {
-  const colors = {};
-
-  for (let [colorName, colorVariants] of Object.entries(palette)) {
-    if (typeof colorVariants === "string") {
-      colorVariants = colorsGenerator(colorVariants, {
-        contrast,
-        hueOffset,
-        numberOfColors
-      }).reduce(
-        (acc, color) =>
-          acc.index === 50
-            ? { ...acc, [acc.index]: color, index: acc.index + 50 }
-            : { ...acc, [acc.index]: color, index: acc.index + 100 },
-        { index: 50 }
-      );
-
-      delete colorVariants.index;
-    }
-
-    for (let [variantName, variantValue] of Object.entries(colorVariants)) {
-      colors[`${colorName}${variantName}`] = variantValue;
-
-      if (colorName === "mono") {
-        colors.white = "#fff";
-        colors.black = "#000";
-      } else {
-        colors[colorName] = colorVariants[400];
-      }
-    }
-  }
-
-  return colors;
-};
+import { type PaletteT, type ColorsT } from "./types";
 
 export const generateColors = (
   palette: PaletteT,
-  {
-    type = "light",
-    contrast,
-    hueOffset
-  }: { type: "light" | "dark", contrast: number, hueOffset: number } = {}
+  { type = "light" }: { type: "light" | "dark" } = {}
 ): ColorsT => {
   try {
     validate(palette);
 
-    const paletteColors = generateNativePaletteColors(palette, {
-      contrast,
-      hueOffset,
-      numberOfColors: 10
+    const paletteMap = new Map();
+    Object.keys(palette).forEach(k => {
+      paletteMap.set(k, palette[k]);
     });
+
+    const paletteColors = generate(paletteMap);
 
     const setColor = (light, dark) => {
       // We can check the contrast values here and notify the user about it

@@ -3,8 +3,8 @@ export { ColorsT } from "baseui/styles/types.js.flow";
 
 export type VariantT = {
   color: string,
-  contrast: ?number,
-  hueOffset: ?number,
+  contrast: void | number,
+  hueOffset: void | number,
   "50": ?string,
   "100": ?string,
   "200": ?string,
@@ -25,6 +25,8 @@ export type PaletteT = {
   positive: VariantT,
   mono: VariantT
 };
+
+export type PaletteMapT = Map<string, VariantT>;
 
 export type NativePaletteColorsT = {
   // Primary Palette
