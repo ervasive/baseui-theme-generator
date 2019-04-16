@@ -1,5 +1,5 @@
 // @flow
-export { ColorsT } from "baseui/styles/types.js.flow";
+export { ThemeT, ColorsT } from "baseui/styles/types.js.flow";
 
 export type VariantT = {
   color: string,
@@ -15,7 +15,10 @@ export type VariantT = {
   "700": ?string,
   "800": ?string,
   "900": ?string,
-  "1000": ?string
+export type ThemeConfigT = {
+  palette: PaletteT,
+  type: "light" | "dark",
+  typography: string
 };
 
 export type PaletteT = {
