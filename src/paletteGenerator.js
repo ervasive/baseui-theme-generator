@@ -14,7 +14,6 @@ export default function generate(palette: PaletteMapT): NativePaletteColorsT {
   for (let [colorName, color] of palette.entries()) {
     const generatedVariants = generateVariants(color);
 
-    delete color.color;
     delete color.contrast;
     delete color.hueOffset;
 
@@ -35,12 +34,19 @@ export default function generate(palette: PaletteMapT): NativePaletteColorsT {
   return colors;
 }
 
-export function generateVariants({
-  color,
-  contrast = 0.1,
-  hueOffset = 0
-}: VariantT = {}): { [string]: string } {
+export function generateVariants(variant: VariantT): { [string]: string } {
   const colors = {};
+  let color, hueOffset, contrast;
+
+  if (typeof variant === "string") {
+    color = variant;
+    contrast = 0.1;
+    hueOffset = 0;
+  } else {
+    color = variant[400];
+    contrast = variant.contrast ? variant.contrast : 0.1;
+    hueOffset = variant.hueOffset ? variant.hueOffset : 0;
+  }
 
   new Array(11).fill(color).map((c, i, a) => {
     const index = i === 0 ? 50 : i * 100;

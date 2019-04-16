@@ -1,17 +1,16 @@
 import validate from "../src/paletteValidator";
 
 const validMinimal = {
-  color: "red"
+  400: "red"
 };
 
 const valid = {
-  color: "red",
+  400: "red",
   contrast: 0.5,
   hueOffset: 15
 };
 
 const validManual = {
-  color: "red",
   50: "red",
   100: "red",
   200: "red",
@@ -27,12 +26,12 @@ const validManual = {
 
 describe("Palette validator", () => {
   it("should throw on invalid palette object", () => {
-    expect(() => validate()).toThrow(/invalid palette/i);
+    expect(() => validate()).toThrow(/palette object was not provided/i);
+    expect(() => validate(0)).toThrow(/palette object was not provided/i);
+    expect(() => validate(null)).toThrow(/palette object was not provided/i);
+    expect(() => validate("")).toThrow(/palette object was not provided/i);
     expect(() => validate({})).toThrow(/invalid palette/i);
     expect(() => validate([])).toThrow(/invalid palette/i);
-    expect(() => validate("")).toThrow(/invalid palette/i);
-    expect(() => validate(0)).toThrow(/invalid palette/i);
-    expect(() => validate(null)).toThrow(/invalid palette/i);
   });
   it("should throw on invalid color object", () => {
     expect(() =>
@@ -47,58 +46,86 @@ describe("Palette validator", () => {
 
     expect(() =>
       validate({
-        primary: { color: "not-valid" },
+        primary: { 400: null },
         negative: validMinimal,
         warning: validMinimal,
         positive: validMinimal,
         mono: validMinimal
       })
-    ).toThrow(/unable to validate .+ color variant/i);
+    ).toThrow(/invalid color/i);
 
     expect(() =>
       validate({
-        primary: { color: "red", 500: "not-valid" },
+        primary: { 400: "not-valid" },
         negative: validMinimal,
         warning: validMinimal,
         positive: validMinimal,
         mono: validMinimal
       })
-    ).toThrow(/unable to validate .+ color variant/i);
+    ).toThrow(/invalid color/i);
 
     expect(() =>
       validate({
-        primary: { color: "red", contrast: -1 },
+        primary: { 400: "red", 500: "not-valid" },
         negative: validMinimal,
         warning: validMinimal,
         positive: validMinimal,
         mono: validMinimal
       })
-    ).toThrow(/contrast value of .+ color is out of allowed range/i);
+    ).toThrow(/invalid color/i);
 
     expect(() =>
       validate({
-        primary: { color: "red", contrast: 1.1 },
+        primary: { 400: "red", contrast: -1 },
         negative: validMinimal,
         warning: validMinimal,
         positive: validMinimal,
         mono: validMinimal
       })
-    ).toThrow(/contrast value of .+ color is out of allowed range/i);
+    ).toThrow(/invalid 'contrast'/i);
 
     expect(() =>
       validate({
-        primary: { color: "red", hueOffset: "not-valid" },
+        primary: { 400: "red", contrast: 1.1 },
         negative: validMinimal,
         warning: validMinimal,
         positive: validMinimal,
         mono: validMinimal
       })
-    ).toThrow(
-      /unable to convert the 'hueOffset' value of .+ color to a number/i
-    );
+    ).toThrow(/invalid 'contrast'/i);
+
+    expect(() =>
+      validate({
+        primary: { 400: "red", hueOffset: "not-valid" },
+        negative: validMinimal,
+        warning: validMinimal,
+        positive: validMinimal,
+        mono: validMinimal
+      })
+    ).toThrow(/invalid 'hueOffset'/i);
+
+    expect(() =>
+      validate({
+        primary: { 400: "red", hueOffset: -400 },
+        negative: validMinimal,
+        warning: validMinimal,
+        positive: validMinimal,
+        mono: validMinimal
+      })
+    ).toThrow(/invalid 'hueOffset'/i);
+
+    expect(() =>
+      validate({
+        primary: { 400: "red", hueOffset: 400 },
+        negative: validMinimal,
+        warning: validMinimal,
+        positive: validMinimal,
+        mono: validMinimal
+      })
+    ).toThrow(/invalid 'hueOffset'/i);
   });
 
-  it("should validate validpalette objects", () => {
+  it("should validate valid palette objects", () => {
     expect(() =>
       validate({
         primary: validMinimal,

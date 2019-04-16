@@ -2,7 +2,7 @@ import generate, { generateVariants } from "../src/paletteGenerator";
 
 describe("Colors generator", () => {
   it("should generate correct colors modulations with default params", () => {
-    const result = generateVariants({ color: "#ff0000" });
+    const result = generateVariants({ 400: "#ff0000" });
 
     expect(result).toEqual({
       "50": "#fff",
@@ -20,7 +20,7 @@ describe("Colors generator", () => {
   });
 
   it("should generate correct colors modulations with custom contrast", () => {
-    const result = generateVariants({ color: "#ff0000", contrast: 0.15 });
+    const result = generateVariants({ 400: "#ff0000", contrast: 0.15 });
 
     expect(result).toEqual({
       "50": "#fff",
@@ -38,7 +38,7 @@ describe("Colors generator", () => {
   });
 
   it("should generate correct colors modulations with custom hue offset", () => {
-    const result = generateVariants({ color: "#ff0000", hueOffset: 15 });
+    const result = generateVariants({ 400: "#ff0000", hueOffset: 15 });
 
     expect(result).toEqual({
       "50": "#fff",
@@ -57,7 +57,7 @@ describe("Colors generator", () => {
 
   it("should generate correct colors modulations with custom hue offset and contrast values", () => {
     const result = generateVariants({
-      color: "#ff0000",
+      400: "#ff0000",
       contrast: 0.15,
       hueOffset: 15
     });
@@ -80,7 +80,7 @@ describe("Colors generator", () => {
 
 describe("Generate palette", () => {
   it("should generate 'native' accented palette", () => {
-    const palette = new Map([["primary", { color: "red" }]]);
+    const palette = new Map([["primary", { 400: "red" }]]);
     expect(generate(palette)).toEqual({
       primary: "#ff4d4d",
       primary50: "#fff",
@@ -98,7 +98,7 @@ describe("Generate palette", () => {
   });
 
   it("should generate 'native' mono palette", () => {
-    const palette = new Map([["mono", { color: "#ccc" }]]);
+    const palette = new Map([["mono", { 400: "#ccc" }]]);
     expect(generate(palette)).toEqual({
       black: "#000",
       mono50: "#fff",
