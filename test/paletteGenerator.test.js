@@ -6,15 +6,16 @@ describe("Colors generator", () => {
 
     expect(result).toEqual({
       "50": "#fff",
-      "100": "#fcc",
-      "200": "#f99",
-      "300": "#f66",
-      "400": "#f33",
-      "500": "#f00",
-      "600": "#c00",
-      "700": "#900",
-      "800": "#600",
-      "900": "#300"
+      "100": "#ffe5e5",
+      "200": "#ffb3b3",
+      "300": "#ff8080",
+      "400": "#ff4d4d",
+      "500": "#ff1a1a",
+      "600": "#e60000",
+      "700": "#b30000",
+      "800": "#800000",
+      "900": "#4c0000",
+      "1000": "#190000"
     });
   });
 
@@ -24,14 +25,15 @@ describe("Colors generator", () => {
     expect(result).toEqual({
       "50": "#fff",
       "100": "#fff",
-      "200": "#ffe5e5",
-      "300": "#f99",
-      "400": "#ff4d4d",
-      "500": "#f00",
-      "600": "#b30000",
-      "700": "#600",
-      "800": "#1a0000",
-      "900": "#000"
+      "200": "#fff",
+      "300": "#ffbfbf",
+      "400": "#ff7373",
+      "500": "#ff2626",
+      "600": "#d90000",
+      "700": "#8c0000",
+      "800": "#400000",
+      "900": "#000",
+      "1000": "#000"
     });
   });
 
@@ -40,15 +42,16 @@ describe("Colors generator", () => {
 
     expect(result).toEqual({
       "50": "#fff",
-      "100": "#ffc",
-      "200": "#ffe599",
-      "300": "#ffb366",
-      "400": "#f63",
-      "500": "#f00",
-      "600": "#c03",
-      "700": "#99004d",
-      "800": "#66004c",
-      "900": "#303"
+      "100": "#fcffe5",
+      "200": "#fff5b3",
+      "300": "#ffcf80",
+      "400": "#ff904d",
+      "500": "#ff361a",
+      "600": "#e6001d",
+      "700": "#b30043",
+      "800": "#80004f",
+      "900": "#4c0043",
+      "1000": "#160019"
     });
   });
 
@@ -62,14 +65,15 @@ describe("Colors generator", () => {
     expect(result).toEqual({
       "50": "#fff",
       "100": "#fff",
-      "200": "#fff9e5",
-      "300": "#fc9",
-      "400": "#ff794d",
-      "500": "#f00",
-      "600": "#b3002d",
-      "700": "#603",
-      "800": "#1a0013",
-      "900": "#000"
+      "200": "#fff",
+      "300": "#ffe7bf",
+      "400": "#ffa873",
+      "500": "#ff4126",
+      "600": "#d9001b",
+      "700": "#8c0035",
+      "800": "#400028",
+      "900": "#000",
+      "1000": "#000"
     });
   });
 });
@@ -78,17 +82,18 @@ describe("Generate palette", () => {
   it("should generate 'native' accented palette", () => {
     const palette = new Map([["primary", { color: "red" }]]);
     expect(generate(palette)).toEqual({
-      primary: "#f33",
+      primary: "#ff4d4d",
       primary50: "#fff",
-      primary100: "#fcc",
-      primary200: "#f99",
-      primary300: "#f66",
-      primary400: "#f33",
-      primary500: "#f00",
-      primary600: "#c00",
-      primary700: "#900",
-      primary800: "#600",
-      primary900: "#300"
+      primary100: "#ffe5e5",
+      primary200: "#ffb3b3",
+      primary300: "#ff8080",
+      primary400: "#ff4d4d",
+      primary500: "#ff1a1a",
+      primary600: "#e60000",
+      primary700: "#b30000",
+      primary800: "#800000",
+      primary900: "#4c0000",
+      primary1000: "#190000"
     });
   });
 
@@ -100,12 +105,13 @@ describe("Generate palette", () => {
       mono100: "#fff",
       mono200: "#fff",
       mono300: "#fff",
-      mono400: "#e6e6e6",
-      mono500: "#ccc",
-      mono600: "#b3b3b3",
-      mono700: "#999",
-      mono800: "#808080",
-      mono900: "#666",
+      mono400: "#f2f2f2",
+      mono500: "#d9d9d9",
+      mono600: "#bfbfbf",
+      mono700: "#a6a6a6",
+      mono800: "#8c8c8c",
+      mono900: "#737373",
+      mono1000: "#595959",
       white: "#fff"
     });
   });

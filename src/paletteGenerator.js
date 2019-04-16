@@ -42,7 +42,7 @@ export function generateVariants({
 }: VariantT = {}): { [string]: string } {
   const colors = {};
 
-  new Array(10).fill(color).map((c, i, a) => {
+  new Array(11).fill(color).map((c, i, a) => {
     const index = i === 0 ? 50 : i * 100;
     const multiplier = a.length / 2 - i;
     const h = adjustHue(hueOffset * multiplier + 360, c);
