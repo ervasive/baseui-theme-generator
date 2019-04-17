@@ -1,4 +1,7 @@
-import generate, { generateVariants } from "../src/paletteGenerator";
+import {
+  generatePrimitives,
+  generateVariants
+} from "../src/primitivesGenerator";
 
 describe("Colors generator", () => {
   it("should generate correct colors modulations with default params", () => {
@@ -80,8 +83,13 @@ describe("Colors generator", () => {
 
 describe("Generate palette", () => {
   it("should generate 'native' accented palette from string color value", () => {
-    const palette = new Map([["primary", "#f00"]]);
-    expect(generate(palette)).toEqual({
+    expect(
+      generatePrimitives({
+        palette: {
+          primary: "red"
+        }
+      })
+    ).toEqual({
       primary: "#f00",
       primary50: "#fcc",
       primary100: "#f99",
@@ -97,8 +105,13 @@ describe("Generate palette", () => {
     });
   });
   it("should generate 'native' accented palette from object color value", () => {
-    const palette = new Map([["primary", { 400: "red" }]]);
-    expect(generate(palette)).toEqual({
+    expect(
+      generatePrimitives({
+        palette: {
+          primary: { 400: "red" }
+        }
+      })
+    ).toEqual({
       primary: "red",
       primary50: "#fcc",
       primary100: "#f99",
@@ -115,8 +128,13 @@ describe("Generate palette", () => {
   });
 
   it("should generate 'native' accented palette from object color value with variant override", () => {
-    const palette = new Map([["primary", { 400: "red", 1000: "blue" }]]);
-    expect(generate(palette)).toEqual({
+    expect(
+      generatePrimitives({
+        palette: {
+          primary: { 400: "red", 1000: "blue" }
+        }
+      })
+    ).toEqual({
       primary: "red",
       primary50: "#fcc",
       primary100: "#f99",
@@ -133,8 +151,13 @@ describe("Generate palette", () => {
   });
 
   it("should generate 'native' mono palette", () => {
-    const palette = new Map([["mono", { 400: "#b3b3b3" }]]);
-    expect(generate(palette)).toEqual({
+    expect(
+      generatePrimitives({
+        palette: {
+          mono: { 400: "#b3b3b3" }
+        }
+      })
+    ).toEqual({
       black: "#000",
       mono50: "#fff",
       mono100: "#fff",

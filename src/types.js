@@ -1,7 +1,22 @@
 // @flow
 export { ThemeT, ColorsT } from "baseui/styles/types.js.flow";
 
-export type VariantT =
+export type ThemeConfigT = {
+  palette: ThemeConfigPaletteT
+};
+
+export type PaletteTypeT = "light" | "dark";
+
+export type ThemeConfigPaletteT = {
+  type: PaletteTypeT,
+  primary: ThemeConfigColorT,
+  negative: ThemeConfigColorT,
+  warning: ThemeConfigColorT,
+  positive: ThemeConfigColorT,
+  mono: ThemeConfigColorT
+};
+
+export type ThemeConfigColorT =
   | string
   | {
       "50": ?string,
@@ -19,23 +34,7 @@ export type VariantT =
       hueOffset: void | number
     };
 
-export type ThemeConfigT = {
-  palette: PaletteT,
-  type: "light" | "dark",
-  typography: string
-};
-
-export type PaletteT = {
-  primary: VariantT,
-  negative: VariantT,
-  warning: VariantT,
-  positive: VariantT,
-  mono: VariantT
-};
-
-export type PaletteMapT = Map<string, VariantT>;
-
-export type NativePaletteColorsT = {
+export type ThemePrimitivesT = {
   // Primary Palette
   primary: string,
   primary50: string,
@@ -50,7 +49,7 @@ export type NativePaletteColorsT = {
   primary900: string,
   primary1000: string,
 
-  // Negative Palette
+  // Alert Palette
   negative: string,
   negative50: string,
   negative100: string,
@@ -78,7 +77,7 @@ export type NativePaletteColorsT = {
   warning900: string,
   warning1000: string,
 
-  // Positive Palette
+  // Success Palette
   positive: string,
   positive50: string,
   positive100: string,
@@ -92,8 +91,7 @@ export type NativePaletteColorsT = {
   positive900: string,
   positive1000: string,
 
-  // Mono Palette
-  mono: string,
+  // Monochrome Palette
   mono50: string,
   mono100: string,
   mono200: string,
@@ -106,5 +104,10 @@ export type NativePaletteColorsT = {
   mono900: string,
   mono1000: string,
   white: string,
-  black: string
+  black: string,
+
+  // Rating Palette
+  // TODO: address this
+  rating200: string,
+  rating400: string
 };

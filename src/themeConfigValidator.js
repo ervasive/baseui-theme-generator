@@ -1,7 +1,7 @@
 // @flow
 import { parseToRgb } from "polished";
 
-import { type PaletteT } from "./types";
+import { type ThemeConfigT, type ThemeConfigPaletteT } from "./types";
 
 const colorShape = [
   `{`,
@@ -26,7 +26,7 @@ const getInvalidColorErrorMessage = colorName =>
   `value (in form of a string), or an object with the following shape:\n` +
   colorShape;
 
-export default function validate(palette: PaletteT): void {
+export function validatePalette(palette: ThemeConfigPaletteT): void {
   if (!palette) throw new Error(`Palette object was not provided.`);
 
   if (
@@ -115,4 +115,8 @@ export default function validate(palette: PaletteT): void {
       );
     }
   }
+}
+
+export function validateThemeConfig(theme: ThemeConfigT): void {
+  validatePalette(theme.palette);
 }
