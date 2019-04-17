@@ -12,12 +12,13 @@ export default function generate(palette: PaletteMapT): NativePaletteColorsT {
   let colors = {};
 
   for (let [colorName, color] of palette.entries()) {
-    const generatedVariants = generateVariants(color);
+    let variants = generateVariants(color);
 
-    delete color.contrast;
-    delete color.hueOffset;
-
-    const variants = { ...generatedVariants, ...color };
+    if (typeof color === "object") {
+      delete color.contrast;
+      delete color.hueOffset;
+      variants = { ...variants, ...color };
+    }
 
     for (let [variantName, variantValue] of Object.entries(variants)) {
       colors[`${colorName}${variantName}`] = variantValue;
@@ -26,7 +27,7 @@ export default function generate(palette: PaletteMapT): NativePaletteColorsT {
         colors.white = "#fff";
         colors.black = "#000";
       } else {
-        colors[colorName] = variants[400];
+        colors[colorName] = variants["400"];
       }
     }
   }

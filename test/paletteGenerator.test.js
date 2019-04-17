@@ -79,7 +79,24 @@ describe("Colors generator", () => {
 });
 
 describe("Generate palette", () => {
-  it("should generate 'native' accented palette", () => {
+  it("should generate 'native' accented palette from string color value", () => {
+    const palette = new Map([["primary", "#f00"]]);
+    expect(generate(palette)).toEqual({
+      primary: "#f00",
+      primary50: "#fcc",
+      primary100: "#f99",
+      primary200: "#f66",
+      primary300: "#f33",
+      primary400: "#f00",
+      primary500: "#c00",
+      primary600: "#900",
+      primary700: "#600",
+      primary800: "#300",
+      primary900: "#000",
+      primary1000: "#000"
+    });
+  });
+  it("should generate 'native' accented palette from object color value", () => {
     const palette = new Map([["primary", { 400: "red" }]]);
     expect(generate(palette)).toEqual({
       primary: "red",
@@ -94,6 +111,24 @@ describe("Generate palette", () => {
       primary800: "#300",
       primary900: "#000",
       primary1000: "#000"
+    });
+  });
+
+  it("should generate 'native' accented palette from object color value with variant override", () => {
+    const palette = new Map([["primary", { 400: "red", 1000: "blue" }]]);
+    expect(generate(palette)).toEqual({
+      primary: "red",
+      primary50: "#fcc",
+      primary100: "#f99",
+      primary200: "#f66",
+      primary300: "#f33",
+      primary400: "red",
+      primary500: "#c00",
+      primary600: "#900",
+      primary700: "#600",
+      primary800: "#300",
+      primary900: "#000",
+      primary1000: "blue"
     });
   });
 
