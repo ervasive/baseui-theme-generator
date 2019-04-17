@@ -5,17 +5,17 @@ describe("Colors generator", () => {
     const result = generateVariants({ 400: "#ff0000" });
 
     expect(result).toEqual({
-      "50": "#fff",
-      "100": "#ffe5e5",
-      "200": "#ffb3b3",
-      "300": "#ff8080",
-      "400": "#ff4d4d",
-      "500": "#ff1a1a",
-      "600": "#e60000",
-      "700": "#b30000",
-      "800": "#800000",
-      "900": "#4c0000",
-      "1000": "#190000"
+      "50": "#fcc",
+      "100": "#f99",
+      "200": "#f66",
+      "300": "#f33",
+      "400": "#f00",
+      "500": "#c00",
+      "600": "#900",
+      "700": "#600",
+      "800": "#300",
+      "900": "#000",
+      "1000": "#000"
     });
   });
 
@@ -24,14 +24,14 @@ describe("Colors generator", () => {
 
     expect(result).toEqual({
       "50": "#fff",
-      "100": "#fff",
-      "200": "#fff",
-      "300": "#ffbfbf",
-      "400": "#ff7373",
-      "500": "#ff2626",
-      "600": "#d90000",
-      "700": "#8c0000",
-      "800": "#400000",
+      "100": "#ffe5e5",
+      "200": "#f99",
+      "300": "#ff4d4d",
+      "400": "#f00",
+      "500": "#b30000",
+      "600": "#600",
+      "700": "#1a0000",
+      "800": "#000",
       "900": "#000",
       "1000": "#000"
     });
@@ -41,17 +41,17 @@ describe("Colors generator", () => {
     const result = generateVariants({ 400: "#ff0000", hueOffset: 15 });
 
     expect(result).toEqual({
-      "50": "#fff",
-      "100": "#fcffe5",
-      "200": "#fff5b3",
-      "300": "#ffcf80",
-      "400": "#ff904d",
-      "500": "#ff361a",
-      "600": "#e6001d",
-      "700": "#b30043",
-      "800": "#80004f",
-      "900": "#4c0043",
-      "1000": "#160019"
+      "50": "#ffc",
+      "100": "#ffe599",
+      "200": "#ffb366",
+      "300": "#f63",
+      "400": "#f00",
+      "500": "#c03",
+      "600": "#99004d",
+      "700": "#66004c",
+      "800": "#303",
+      "900": "#000",
+      "1000": "#000"
     });
   });
 
@@ -64,14 +64,14 @@ describe("Colors generator", () => {
 
     expect(result).toEqual({
       "50": "#fff",
-      "100": "#fff",
-      "200": "#fff",
-      "300": "#ffe7bf",
-      "400": "#ffa873",
-      "500": "#ff4126",
-      "600": "#d9001b",
-      "700": "#8c0035",
-      "800": "#400028",
+      "100": "#fff9e5",
+      "200": "#fc9",
+      "300": "#ff794d",
+      "400": "#f00",
+      "500": "#b3002d",
+      "600": "#603",
+      "700": "#1a0013",
+      "800": "#000",
       "900": "#000",
       "1000": "#000"
     });
@@ -82,36 +82,36 @@ describe("Generate palette", () => {
   it("should generate 'native' accented palette", () => {
     const palette = new Map([["primary", { 400: "red" }]]);
     expect(generate(palette)).toEqual({
-      primary: "#ff4d4d",
-      primary50: "#fff",
-      primary100: "#ffe5e5",
-      primary200: "#ffb3b3",
-      primary300: "#ff8080",
-      primary400: "#ff4d4d",
-      primary500: "#ff1a1a",
-      primary600: "#e60000",
-      primary700: "#b30000",
-      primary800: "#800000",
-      primary900: "#4c0000",
-      primary1000: "#190000"
+      primary: "red",
+      primary50: "#fcc",
+      primary100: "#f99",
+      primary200: "#f66",
+      primary300: "#f33",
+      primary400: "red",
+      primary500: "#c00",
+      primary600: "#900",
+      primary700: "#600",
+      primary800: "#300",
+      primary900: "#000",
+      primary1000: "#000"
     });
   });
 
   it("should generate 'native' mono palette", () => {
-    const palette = new Map([["mono", { 400: "#ccc" }]]);
+    const palette = new Map([["mono", { 400: "#b3b3b3" }]]);
     expect(generate(palette)).toEqual({
       black: "#000",
       mono50: "#fff",
       mono100: "#fff",
-      mono200: "#fff",
-      mono300: "#fff",
-      mono400: "#f2f2f2",
-      mono500: "#d9d9d9",
-      mono600: "#bfbfbf",
-      mono700: "#a6a6a6",
-      mono800: "#8c8c8c",
-      mono900: "#737373",
-      mono1000: "#595959",
+      mono200: "#e6e6e6",
+      mono300: "#ccc",
+      mono400: "#b3b3b3",
+      mono500: "#9a9a9a",
+      mono600: "#808080",
+      mono700: "#666",
+      mono800: "#4d4d4d",
+      mono900: "#333",
+      mono1000: "#1a1a1a",
       white: "#fff"
     });
   });

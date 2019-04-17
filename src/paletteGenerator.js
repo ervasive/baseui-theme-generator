@@ -48,10 +48,20 @@ export function generateVariants(variant: VariantT): { [string]: string } {
     hueOffset = variant.hueOffset ? variant.hueOffset : 0;
   }
 
-  new Array(11).fill(color).map((c, i, a) => {
-    const index = i === 0 ? 50 : i * 100;
-    const multiplier = a.length / 2 - i;
-    const h = adjustHue(hueOffset * multiplier + 360, c);
+  [
+    { index: 50, multiplier: 4 },
+    { index: 100, multiplier: 3 },
+    { index: 200, multiplier: 2 },
+    { index: 300, multiplier: 1 },
+    { index: 400, multiplier: 0 },
+    { index: 500, multiplier: -1 },
+    { index: 600, multiplier: -2 },
+    { index: 700, multiplier: -3 },
+    { index: 800, multiplier: -4 },
+    { index: 900, multiplier: -5 },
+    { index: 1000, multiplier: -6 }
+  ].map(({ index, multiplier }) => {
+    const h = adjustHue(hueOffset * multiplier + 360, color);
     colors[index] = lighten(contrast * multiplier, String(h));
   });
 
