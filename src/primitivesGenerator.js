@@ -10,8 +10,15 @@ import {
 export function generatePrimitives(theme: ThemeConfigT): ThemePrimitivesT {
   let primitives = {};
 
-  for (let [colorName, color] of Object.entries(theme.palette)) {
-    // TODO: fix flow error
+  // Refine type
+  const colorsMap: Map<string, ThemeConfigColorT> = new Map(
+    Object.keys(theme.palette).map(colorName => [
+      colorName,
+      theme.palette[colorName]
+    ])
+  );
+
+  for (let [colorName, color] of colorsMap.entries()) {
     let colorVariants = generateVariants(color);
 
     if (typeof color === "object") {
