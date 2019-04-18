@@ -1,11 +1,12 @@
 module.exports = {
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   extends: [
-    "eslint:recommended",
-    "plugin:jest/recommended",
-    "plugin:flowtype/recommended"
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:jest/recommended',
+    'plugin:flowtype/recommended',
   ],
   env: {
-    es6: true
-  }
-};
+    es6: true,
+  },
+}
