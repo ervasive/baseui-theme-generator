@@ -19,6 +19,6 @@
 //   - generate toolip background color with other colors based on mono palette
 //   - notify on low contrast values and low legibility
 //   - theme generation with different baseui version tokens lists
-describe("Colors generation", () => {
-  it("pass", () => expect(true).toBe(true));
-});
+describe('Colors generation', () => {
+  it('pass', () => expect(true).toBe(true))
+})
