@@ -11,6 +11,11 @@
     "build": "yarn run prebuild && babel src/ -d lib/",
     "prepublish": "yarn run build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm prepublish"
+    }
+  },
   "keywords": [],
   "author": "Ruslan Vasiliev <ervasive@gmail.com>",
   "license": "MIT",
@@ -31,6 +36,7 @@
     "eslint-plugin-flowtype": "^3.6.1",
     "eslint-plugin-jest": "^22.4.1",
     "flow-bin": "^0.96.0",
+    "husky": "^1.3.1",
     "jest": "^24.7.1",
     "polished": "^3.2.0"
   },
