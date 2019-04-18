@@ -6,7 +6,6 @@ import {
   type ColorsT
 } from "./types";
 
-// TODO: write tests
 export const createSetColor = (
   primitives: ThemePrimitivesT,
   type: PaletteTypeT = "light"
