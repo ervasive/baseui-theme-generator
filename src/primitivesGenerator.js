@@ -12,10 +12,9 @@ export function generatePrimitives(theme: ThemeConfigT): ThemePrimitivesT {
 
   // Refine type
   const colorsMap: Map<string, ThemeConfigColorT> = new Map(
-    Object.keys(theme.palette).map(colorName => [
-      colorName,
-      theme.palette[colorName]
-    ])
+    Object.keys(theme.palette)
+      .filter(colorName => !["type"].includes(colorName))
+      .map(colorName => [colorName, theme.palette[colorName]])
   );
 
   for (let [colorName, color] of colorsMap.entries()) {
