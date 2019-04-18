@@ -7,7 +7,8 @@
     "test": "jest",
     "flow": "flow",
     "lint": "eslint ./src",
-    "build": "yarn run lint && yarn run flow && yarn run test && babel src/ -d lib/",
+    "prebuild": "yarn run lint && yarn run flow && yarn run test",
+    "build": "yarn run prebuild && babel src/ -d lib/",
     "prepublish": "yarn run build"
   },
   "keywords": [],
