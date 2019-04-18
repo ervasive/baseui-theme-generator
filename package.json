@@ -1,18 +1,38 @@
 {
   "name": "baseui-theme-generator",
   "version": "1.0.0",
-  "description": "A theme generator helper for Base Web (uber design components platform).",
-  "main": "index.js",
+  "description": "A theme generation helper for Base Web (uber design components platform).",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "flow": "flow",
+    "lint": "eslint ./src",
+    "prebuild": "yarn run lint && yarn run flow && yarn run test",
+    "build": "yarn run prebuild && babel src/ -d lib/",
+    "prepublish": "yarn run build"
   },
   "keywords": [],
   "author": "Ruslan Vasiliev <ervasive@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "baseui": "^6.13.0"
+    "baseui": "^6.13.0",
+    "polished": "^3.2.0"
   },
   "devDependencies": {
-    "baseui": "^6.13.0"
-  }
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.7.1",
+    "baseui": "^6.13.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-flowtype": "^3.6.1",
+    "eslint-plugin-jest": "^22.4.1",
+    "flow-bin": "^0.96.0",
+    "jest": "^24.7.1",
+    "polished": "^3.2.0"
+  },
+  "dependencies": {}
 }
