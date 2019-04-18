@@ -17,7 +17,7 @@ const colorShape = [
   `\t900:       string [optional] (css color value)`,
   `\t1000:      string [optional] (css color value)`,
   `\tcontrast:  number [optional] (from 0.0 to 1.0)`,
-  `\thueOffset: number [optional] (degrees)`,
+  `\thueOffset: number [optional] (degrees, from -360 to 360)`,
   `}`
 ].join(`\n`);
 
@@ -47,19 +47,31 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
     );
   }
 
-  for (let [colorName, color] of Object.entries(palette)) {
-    if (typeof color === "string") {
+  if (
+    palette.hasOwnProperty("type") &&
+    !["light", "dark"].includes(palette.type)
+  ) {
+    throw new Error(
+      `Invalid palette type.\nIt looks like the type of the provided palette ` +
+        `is invalid. Allowed values are: 'light', 'dark'.`
+    );
+  }
+
+  for (let [colorName, colorValue] of Object.entries(palette)) {
+    if (typeof colorValue === "string") {
+      if (colorName === "type") continue;
+
       try {
-        parseToRgb(color);
+        parseToRgb(colorValue);
       } catch (e) {
         throw new Error(getInvalidColorErrorMessage(colorName));
       }
     }
 
     if (
-      typeof color !== "object" ||
-      color === null ||
-      !color.hasOwnProperty(400)
+      typeof colorValue !== "object" ||
+      colorValue === null ||
+      !colorValue.hasOwnProperty(400)
     ) {
       throw new Error(getInvalidColorErrorMessage(colorName));
     }
@@ -78,7 +90,7 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
       "1000"
     ].map(c => {
       try {
-        color.hasOwnProperty(c) && parseToRgb(String(color[c]));
+        colorValue.hasOwnProperty(c) && parseToRgb(String(colorValue[c]));
       } catch (e) {
         throw new Error(
           `Invalid color variant.\nThe '${colorName}[${c}]' color variant ` +
@@ -90,8 +102,8 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
     });
 
     if (
-      color.hasOwnProperty("contrast") &&
-      (Number(color.contrast) > 1 || Number(color.contrast) < 0)
+      colorValue.hasOwnProperty("contrast") &&
+      (Number(colorValue.contrast) > 1 || Number(colorValue.contrast) < 0)
     ) {
       throw new Error(
         `Invalid 'contrast' value.\nThe 'contrast' value of '${colorName}' ` +
@@ -102,10 +114,10 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
     }
 
     if (
-      color.hasOwnProperty("hueOffset") &&
-      (isNaN(Number(color.hueOffset)) ||
-        Number(color.hueOffset) < -360 ||
-        Number(color.hueOffset) > 360)
+      colorValue.hasOwnProperty("hueOffset") &&
+      (isNaN(Number(colorValue.hueOffset)) ||
+        Number(colorValue.hueOffset) < -360 ||
+        Number(colorValue.hueOffset) > 360)
     ) {
       throw new Error(
         `Invalid 'hueOffset' value.\nThe 'hueOffset' value of '${colorName}' ` +
