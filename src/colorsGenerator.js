@@ -2,26 +2,19 @@
 
 import {type ThemePrimitivesT, type PaletteTypeT, type ColorsT} from './types'
 
-// TODO: write tests
-export const createSetColor = (
-  primitives: ThemePrimitivesT,
-  type: PaletteTypeT = 'light',
-): Function => (light: string, dark: ?string): string => {
-  const color = type === 'light' || !dark ? light : dark
-
-  if (primitives.hasOwnProperty(color)) {
-    return primitives[color]
-  } else {
-    return color
-  }
-}
-
-// TODO: write tests
 export function generateColors(
   primitives: ThemePrimitivesT,
   type: PaletteTypeT,
 ): {colors: ColorsT, setColor: Function} {
-  const setColor = createSetColor(primitives, type)
+  const setColor = (light: string, dark: ?string): string => {
+    const color = type === 'light' || !dark ? light : dark
+
+    if (primitives.hasOwnProperty(color)) {
+      return primitives[color]
+    } else {
+      return color
+    }
+  }
 
   return {
     setColor,
