@@ -18,10 +18,7 @@ export function generateTheme(
 
     const themePrimitives = generatePrimitives(theme)
 
-    const {colors, setColor} = generateColors(
-      themePrimitives,
-      theme.palette.type,
-    )
+    const colors = generateColors(themePrimitives, theme.palette.type)
 
     const result = {
       colors,
@@ -203,7 +200,7 @@ export function generateTheme(
       },
     }
 
-    return deepMerge(result, overrides(setColor))
+    return deepMerge(result, overrides(result))
   } catch (e) {
     // eslint-disable-next-line
     console.log(e.message)
