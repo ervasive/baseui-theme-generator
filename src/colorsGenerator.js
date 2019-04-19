@@ -6,13 +6,17 @@ export function generateColors(
   primitives: ThemePrimitivesT,
   type: PaletteTypeT,
 ): ColorsT {
-  const setColor = (light: string, dark: ?string): string => {
+  const setColor = (
+    light: string,
+    dark: ?string,
+    fallback: ?string,
+  ): string => {
     const color = type === 'light' || !dark ? light : dark
 
     if (primitives.hasOwnProperty(color)) {
       return primitives[color]
     } else {
-      return color
+      return fallback ? fallback : color
     }
   }
 
@@ -20,8 +24,8 @@ export function generateColors(
     ...primitives,
 
     // Rating Palette,
-    rating200: setColor('mono1000', 'mono100'),
-    rating400: setColor('mono1000', 'mono100'),
+    rating200: setColor('rating200', 'rating200', '#FFE1A5'),
+    rating400: setColor('rating400', 'rating400', '#FFC043'),
 
     // Semantic Colors
 

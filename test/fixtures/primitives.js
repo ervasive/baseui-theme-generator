@@ -58,4 +58,7 @@ export const valid = {
   mono800: 'mono-800-value',
   mono900: 'mono-900-value',
   mono1000: 'mono-1000-value',
+
+  rating200: 'rating-200-value',
+  rating400: 'rating-400-value',
 }
