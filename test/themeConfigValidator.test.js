@@ -154,6 +154,16 @@ describe('Palette validator', () => {
   it('should validatePalette valid palette objects', () => {
     expect(() =>
       validatePalette({
+        primary: 'red',
+        negative: colorValidMinimal,
+        warning: colorValidMinimal,
+        positive: colorValidMinimal,
+        mono: colorValidMinimal,
+      }),
+    ).not.toThrow()
+
+    expect(() =>
+      validatePalette({
         primary: colorValidMinimal,
         negative: colorValidMinimal,
         warning: colorValidMinimal,

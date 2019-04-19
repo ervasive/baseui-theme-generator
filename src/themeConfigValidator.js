@@ -58,13 +58,13 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
   }
 
   for (let [colorName, colorValue] of Object.entries(palette)) {
-    // Ignore the list of allowed non-color elements that should've been
-    // validated prior this step.
+    // Ignore the list of allowed non ThemeConfigColorT elements that should've
+    // been validated prior this step.
     if (['type'].includes(colorName)) continue
-
     if (typeof colorValue === 'string') {
       try {
         parseToRgb(colorValue)
+        continue
       } catch (e) {
         throw new Error(getInvalidColorErrorMessage(colorName))
       }
