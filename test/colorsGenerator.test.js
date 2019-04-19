@@ -1,71 +1,22 @@
-import {createSetColor} from '../src/colorsGenerator'
+import {generateColors} from '../src/colorsGenerator'
+import {valid as validPrimitivesFixture} from './fixtures/primitives'
 
 describe('Colors generator', () => {
-  it('should return light color primitive', () => {
-    const setColor = createSetColor(
-      {
-        lightPrimitive: 'lightPrimitiveValue',
-        darkPrimitive: 'darkPrimitiveValue',
-      },
-      'light',
-    )
+  it('should generate a valid light colors and setColor helper', () => {
+    const {colors, setColor} = generateColors(validPrimitivesFixture, 'light')
 
-    expect(setColor('lightPrimitive', 'darkPrimitive')).toEqual(
-      'lightPrimitiveValue',
-    )
+    expect(colors.background).toBe('mono-100-value')
+    expect(colors.buttonTertiaryFill).toBe('mono-200-value')
+
+    expect(setColor('mono100', 'mono1000')).toEqual('mono-100-value')
   })
 
-  it('should return dark color primitive', () => {
-    const setColor = createSetColor(
-      {
-        lightPrimitive: 'lightPrimitiveValue',
-        darkPrimitive: 'darkPrimitiveValue',
-      },
-      'dark',
-    )
+  it('should generate a valid dark colors and setColor helper', () => {
+    const {colors, setColor} = generateColors(validPrimitivesFixture, 'dark')
 
-    expect(setColor('lightPrimitive', 'darkPrimitive')).toEqual(
-      'darkPrimitiveValue',
-    )
-  })
+    expect(colors.background).toBe('mono-1000-value')
+    expect(colors.buttonTertiaryFill).toBe('mono-800-value')
 
-  it('should return light color primitive if dark variant is missing', () => {
-    const setColor = createSetColor(
-      {
-        lightPrimitive: 'lightPrimitiveValue',
-        darkPrimitive: 'darkPrimitiveValue',
-      },
-      'dark',
-    )
-
-    expect(setColor('lightPrimitive')).toEqual('lightPrimitiveValue')
-  })
-
-  it('should pass through the provided light value if the primitives object does not contain it', () => {
-    const setColor = createSetColor(
-      {
-        lightPrimitive: 'lightPrimitiveValue',
-        darkPrimitive: 'darkPrimitiveValue',
-      },
-      'light',
-    )
-
-    expect(
-      setColor('non-existent-value-light', 'non-existent-value-dark'),
-    ).toEqual('non-existent-value-light')
-  })
-
-  it('should pass through the provided dark value if the primitives object does not contain it', () => {
-    const setColor = createSetColor(
-      {
-        lightPrimitive: 'lightPrimitiveValue',
-        darkPrimitive: 'darkPrimitiveValue',
-      },
-      'dark',
-    )
-
-    expect(
-      setColor('non-existent-value-light', 'non-existent-value-dark'),
-    ).toEqual('non-existent-value-dark')
+    expect(setColor('mono100', 'mono1000')).toEqual('mono-1000-value')
   })
 })
