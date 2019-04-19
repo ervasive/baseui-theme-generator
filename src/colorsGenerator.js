@@ -6,13 +6,17 @@ export function generateColors(
   primitives: ThemePrimitivesT,
   type: PaletteTypeT,
 ): ColorsT {
-  const setColor = (light: string, dark: ?string): string => {
+  const setColor = (
+    light: string,
+    dark: ?string,
+    fallback: ?string,
+  ): string => {
     const color = type === 'light' || !dark ? light : dark
 
     if (primitives.hasOwnProperty(color)) {
       return primitives[color]
     } else {
-      return color
+      return fallback ? fallback : color
     }
   }
 
