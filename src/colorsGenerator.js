@@ -24,8 +24,8 @@ export function generateColors(
     ...primitives,
 
     // Rating Palette,
-    rating200: setColor('mono1000', 'mono100'),
-    rating400: setColor('mono1000', 'mono100'),
+    rating200: setColor('rating200', 'rating200', '#FFE1A5'),
+    rating400: setColor('rating400', 'rating400', '#FFC043'),
 
     // Semantic Colors
 
