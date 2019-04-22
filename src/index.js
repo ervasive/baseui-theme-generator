@@ -1,4 +1,5 @@
 // @flow
+import {transparentize} from 'polished'
 import deepMerge from 'baseui/utils/deep-merge'
 import {validateThemeConfig} from './themeConfigValidator'
 import {generatePrimitives} from './primitivesGenerator'
@@ -18,10 +19,7 @@ export function generateTheme(
 
     const themePrimitives = generatePrimitives(theme)
 
-    const {tokens, setColor} = generateColors(
-      themePrimitives,
-      theme.palette.type,
-    )
+    const {tokens, themed} = generateColors(themePrimitives, theme.palette.type)
 
     const result = {
       colors: tokens,
@@ -138,46 +136,97 @@ export function generateTheme(
         scale4800: '192px',
       },
       lighting: {
-        shadow400: '0 1px 4px hsla(0, 0%, 0%, 0.16)',
-        shadow500: '0 2px 8px hsla(0, 0%, 0%, 0.16)',
-        shadow600: '0 4px 16px hsla(0, 0%, 0%, 0.16)',
-        shadow700: '0 8px 24px hsla(0, 0%, 0%, 0.16)',
-        overlay0: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0)',
-        overlay100: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.04)',
-        overlay200: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.08)',
-        overlay300: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.12)',
-        overlay400: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16)',
-        overlay500: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.2)',
-        overlay600: 'inset 0 0 0 1000px hsla(0, 0%, 0%, 0.24)',
+        shadow400: themed(
+          `0 1px 4px ${transparentize(0.84, tokens.mono1000)}`,
+          `0 1px 4px ${transparentize(0.2, tokens.mono1000)}`,
+        ),
+        shadow500: themed(
+          `0 2px 8px ${transparentize(0.84, tokens.mono1000)}`,
+          `0 1px 4px ${transparentize(0.2, tokens.mono1000)}`,
+        ),
+        shadow600: themed(
+          `0 4px 16px ${transparentize(0.84, tokens.mono1000)}`,
+          `0 4px 16px ${transparentize(0.2, tokens.mono1000)}`,
+        ),
+        shadow700: themed(
+          `0 8px 24px ${transparentize(0.84, tokens.mono1000)}`,
+          `0 8px 24px ${transparentize(0.2, tokens.mono1000)}`,
+        ),
+        overlay0: themed(
+          `inset 0 0 0 1000px ${transparentize(0, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0, tokens.mono1000)}`,
+        ),
+        overlay100: themed(
+          `inset 0 0 0 1000px ${transparentize(0.96, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.96, tokens.mono1000)}`,
+        ),
+        overlay200: themed(
+          `inset 0 0 0 1000px ${transparentize(0.92, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.92, tokens.mono1000)}`,
+        ),
+        overlay300: themed(
+          `inset 0 0 0 1000px ${transparentize(0.88, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.88, tokens.mono1000)}`,
+        ),
+        overlay400: themed(
+          `inset 0 0 0 1000px ${transparentize(0.84, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.84, tokens.mono1000)}`,
+        ),
+        overlay500: themed(
+          `inset 0 0 0 1000px ${transparentize(0.8, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.8, tokens.mono1000)}`,
+        ),
+        overlay600: themed(
+          `inset 0 0 0 1000px ${transparentize(0.76, tokens.mono1000)}`,
+          `inset 0 0 0 1000px ${transparentize(0.76, tokens.mono1000)}`,
+        ),
       },
       borders: {
         border100: {
-          borderColor: 'hsla(0, 0%, 0%, 0.04)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.04)',
+            'hsla(0, 0%, 100%, 0.02)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
         border200: {
-          borderColor: 'hsla(0, 0%, 0%, 0.08)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.08)',
+            'hsla(0, 0%, 100%, 0.05)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
         border300: {
-          borderColor: 'hsla(0, 0%, 0%, 0.12)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.12)',
+            'hsla(0, 0%, 100%, 0.08)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
         border400: {
-          borderColor: 'hsla(0, 0%, 0%, 0.16)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.16)',
+            'hsla(0, 0%, 100%, 0.1)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
         border500: {
-          borderColor: 'hsla(0, 0%, 0%, 0.2)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.2)',
+            'hsla(0, 0%, 100%, 0.12)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
         border600: {
-          borderColor: 'hsla(0, 0%, 0%, 0.24)',
+          borderColor: themed(
+            'hsla(0, 0%, 0%, 0.24)',
+            'hsla(0, 0%, 100%, 0.15)',
+          ),
           borderStyle: 'solid',
           borderWidth: '1px',
         },
@@ -199,11 +248,11 @@ export function generateTheme(
         modal: 2000,
       },
       tooltip: {
-        backgroundColor: setColor('mono900', 'mono200'),
+        backgroundColor: themed('mono900', 'mono200'),
       },
     }
 
-    return deepMerge(result, overrides(result))
+    return deepMerge(result, overrides(result, themed))
   } catch (e) {
     // eslint-disable-next-line
     console.log(e.message)
