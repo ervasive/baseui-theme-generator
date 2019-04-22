@@ -18,7 +18,10 @@ export function generateTheme(
 
     const themePrimitives = generatePrimitives(theme)
 
-    const {tokens} = generateColors(themePrimitives, theme.palette.type)
+    const {tokens, setColor} = generateColors(
+      themePrimitives,
+      theme.palette.type,
+    )
 
     const result = {
       colors: tokens,
@@ -196,7 +199,7 @@ export function generateTheme(
         modal: 2000,
       },
       tooltip: {
-        backgroundColor: 'red',
+        backgroundColor: setColor('mono900', 'mono200'),
       },
     }
 
