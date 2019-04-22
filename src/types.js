@@ -105,9 +105,4 @@ export type ThemePrimitivesT = {
   mono1000: string,
   white: string,
   black: string,
-
-  // Rating Palette
-  // TODO: address this
-  rating200: string,
-  rating400: string,
 }
