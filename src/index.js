@@ -18,10 +18,10 @@ export function generateTheme(
 
     const themePrimitives = generatePrimitives(theme)
 
-    const colors = generateColors(themePrimitives, theme.palette.type)
+    const {tokens} = generateColors(themePrimitives, theme.palette.type)
 
     const result = {
-      colors,
+      colors: tokens,
       breakpoints: {
         small: 320,
         medium: 600,
