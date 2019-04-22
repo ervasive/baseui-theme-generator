@@ -98,6 +98,7 @@ export function generateColors(
     linkText: setColor('primary400', 'primary300'),
     linkVisited: setColor('primary500', 'primary300'),
     linkHover: setColor('primary600', 'primary50'),
+    linkActive: setColor('primary600', 'primary50'),
 
     // Shadow
     shadowFocus: setColor('rgba(39, 110, 241, 0.32)'),
