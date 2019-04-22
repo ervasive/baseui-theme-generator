@@ -1,5 +1,4 @@
 // @flow
-import {transparentize} from 'polished'
 import deepMerge from 'baseui/utils/deep-merge'
 import {validateThemeConfig} from './themeConfigValidator'
 import {generatePrimitives} from './primitivesGenerator'
@@ -137,48 +136,48 @@ export function generateTheme(
       },
       lighting: {
         shadow400: themed(
-          `0 1px 4px ${transparentize(0.84, tokens.mono1000)}`,
-          `0 1px 4px ${transparentize(0.2, tokens.mono1000)}`,
+          `0 1px 4px hsla(0, 0%, 0%, 0.16)`,
+          `0 1px 4px hsla(0, 0%, 0%, 0.16)`,
         ),
         shadow500: themed(
-          `0 2px 8px ${transparentize(0.84, tokens.mono1000)}`,
-          `0 1px 4px ${transparentize(0.2, tokens.mono1000)}`,
+          `0 2px 8px hsla(0, 0%, 0%, 0.16)`,
+          `0 1px 4px hsla(0, 0%, 0%, 0.16)`,
         ),
         shadow600: themed(
-          `0 4px 16px ${transparentize(0.84, tokens.mono1000)}`,
-          `0 4px 16px ${transparentize(0.2, tokens.mono1000)}`,
+          `0 4px 16px hsla(0, 0%, 0%, 0.16)`,
+          `0 4px 16px hsla(0, 0%, 0%, 0.16)`,
         ),
         shadow700: themed(
-          `0 8px 24px ${transparentize(0.84, tokens.mono1000)}`,
-          `0 8px 24px ${transparentize(0.2, tokens.mono1000)}`,
+          `0 8px 24px hsla(0, 0%, 0%, 0.16)`,
+          `0 8px 24px hsla(0, 0%, 0%, 0.16)`,
         ),
         overlay0: themed(
-          `inset 0 0 0 1000px ${transparentize(0, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0)`,
         ),
         overlay100: themed(
-          `inset 0 0 0 1000px ${transparentize(0.96, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.96, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.04)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.04)`,
         ),
         overlay200: themed(
-          `inset 0 0 0 1000px ${transparentize(0.92, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.92, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.08)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.08)`,
         ),
         overlay300: themed(
-          `inset 0 0 0 1000px ${transparentize(0.88, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.88, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.12)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.12)`,
         ),
         overlay400: themed(
-          `inset 0 0 0 1000px ${transparentize(0.84, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.84, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16)`,
         ),
         overlay500: themed(
-          `inset 0 0 0 1000px ${transparentize(0.8, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.8, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16)`,
         ),
         overlay600: themed(
-          `inset 0 0 0 1000px ${transparentize(0.76, tokens.mono1000)}`,
-          `inset 0 0 0 1000px ${transparentize(0.76, tokens.mono1000)}`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.24)`,
+          `inset 0 0 0 1000px hsla(0, 0%, 0%, 0.24)`,
         ),
       },
       borders: {
