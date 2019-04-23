@@ -13,12 +13,17 @@ export function generateTheme(
   try {
     validateThemeConfig(theme)
 
-    // TODO: fix
-    const primaryFontFamily = 'sans-serif'
-
     const themePrimitives = generatePrimitives(theme)
-
     const {tokens, themed} = generateColors(themePrimitives, theme.palette.type)
+
+    let primaryFontFamily
+
+    if (!theme.typography || !theme.typography.primaryFontFamily) {
+      primaryFontFamily =
+        'system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif'
+    } else {
+      primaryFontFamily = theme.typography.primaryFontFamily
+    }
 
     const result = {
       colors: tokens,
@@ -27,7 +32,6 @@ export function generateTheme(
         medium: 600,
         large: 1280,
       },
-      // TODO: consider dinamic typography generation with typography.js
       typography: {
         font100: {
           fontFamily: primaryFontFamily,

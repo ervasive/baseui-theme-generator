@@ -1,8 +1,13 @@
 // @flow
-export {ThemeT, ColorsT} from 'baseui/styles/types.js.flow'
+export {ThemeT, ColorsT, TypographyT} from 'baseui/styles/types.js.flow'
 
 export type ThemeConfigT = {
   palette: ThemeConfigPaletteT,
+  typography?: ThemeConfigTypographyT,
+}
+
+export type ThemeConfigTypographyT = {
+  primaryFontFamily?: string,
 }
 
 export type PaletteTypeT = 'light' | 'dark'
