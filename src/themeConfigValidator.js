@@ -1,7 +1,12 @@
 // @flow
 import {parseToRgb} from 'polished'
 
-import {type ThemeConfigT, type ThemeConfigPaletteT} from './types'
+import {
+  type ThemeConfigT,
+  type ThemeConfigTypeT,
+  type ThemeConfigPaletteT,
+  type ThemeConfigTypographyT,
+} from './types'
 
 const colorShape = [
   `{`,
@@ -22,45 +27,37 @@ const colorShape = [
 ].join(`\n`)
 
 const getInvalidColorErrorMessage = colorName =>
-  `Invalid color.\nThe '${colorName}' color must be either a valid CSS color ` +
-  `value (in form of a string), or an object with the following shape:\n` +
+  `Invalid color.\nThe provided palette contains one or more invalid colors. ` +
+  `The '${colorName}' color must be either a valid CSS color value (in ` +
+  `form of a string), or an object with the following shape:\n` +
   colorShape
 
-export function validatePalette(palette: ThemeConfigPaletteT): void {
-  if (!palette) throw new Error(`Palette object was not provided.`)
+export function validateType(type?: ThemeConfigTypeT): void {
+  if (typeof type == 'undefined') return
+
+  if (typeof type !== 'string' || !['light', 'dark'].includes(type)) {
+    throw new Error(
+      `Invalid theme type configuration. Allowed values (if provided), are: ` +
+        `'light', 'dark'`,
+    )
+  }
+}
+
+export function validatePalette(palette?: ThemeConfigPaletteT): void {
+  if (typeof palette == 'undefined') return
 
   if (
     typeof palette !== 'object' ||
-    !(
-      palette.hasOwnProperty('primary') &&
-      palette.hasOwnProperty('negative') &&
-      palette.hasOwnProperty('warning') &&
-      palette.hasOwnProperty('positive') &&
-      palette.hasOwnProperty('mono')
-    )
+    palette === null ||
+    Array.isArray(palette)
   ) {
     throw new Error(
-      `Invalid palette.\nMake sure that all required colors are provided ` +
-        `(primary, negative, warning, positive, mono) and each one is either ` +
-        `a valid CSS color value (in form of a string), or is an object with ` +
-        `the following shape:\n${colorShape}`,
-    )
-  }
-
-  if (
-    palette.hasOwnProperty('type') &&
-    !['light', 'dark'].includes(palette.type)
-  ) {
-    throw new Error(
-      `Invalid palette type.\nIt looks like the type of the provided palette ` +
-        `is invalid. Allowed values are: 'light', 'dark'.`,
+      `Invalid palette configuration. Palette (if provided), must be an ` +
+        `object containing a collection of colors.`,
     )
   }
 
   for (let [colorName, colorValue] of Object.entries(palette)) {
-    // Ignore the list of allowed non ThemeConfigColorT elements that should've
-    // been validated prior this step.
-    if (['type'].includes(colorName)) continue
     if (typeof colorValue === 'string') {
       try {
         parseToRgb(colorValue)
@@ -104,8 +101,9 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
     })
 
     if (
-      colorValue.hasOwnProperty('contrast') &&
-      (Number(colorValue.contrast) > 1 || Number(colorValue.contrast) < 0)
+      typeof colorValue.contrast !== 'undefined' &&
+      (typeof colorValue.contrast !== 'number' ||
+        (colorValue.contrast > 1 || colorValue.contrast < 0))
     ) {
       throw new Error(
         `Invalid 'contrast' value.\nThe 'contrast' value of '${colorName}' ` +
@@ -116,10 +114,9 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
     }
 
     if (
-      colorValue.hasOwnProperty('hueOffset') &&
-      (isNaN(Number(colorValue.hueOffset)) ||
-        Number(colorValue.hueOffset) < -360 ||
-        Number(colorValue.hueOffset) > 360)
+      typeof colorValue.hueOffset !== 'undefined' &&
+      (typeof colorValue.hueOffset !== 'number' ||
+        (colorValue.hueOffset > 360 || colorValue.hueOffset < -360))
     ) {
       throw new Error(
         `Invalid 'hueOffset' value.\nThe 'hueOffset' value of '${colorName}' ` +
@@ -131,6 +128,38 @@ export function validatePalette(palette: ThemeConfigPaletteT): void {
   }
 }
 
-export function validateThemeConfig(theme: ThemeConfigT): void {
+export function validateTypography(typography?: ThemeConfigTypographyT): void {
+  if (typeof typography == 'undefined') return
+
+  if (
+    typeof typography !== 'object' ||
+    typography === null ||
+    Array.isArray(typography)
+  ) {
+    throw new Error(
+      `Invalid typography configuration. Typography (if provided), must be an ` +
+        `object of the following shape:\n` +
+        [`{`, `\tprimaryFontFamily?: string`, `}`].join(`\n`),
+    )
+  }
+
+  if (typeof typography.primaryFontFamily == 'undefined') return
+
+  if (
+    typeof typography.primaryFontFamily !== 'string' ||
+    typography.primaryFontFamily.length == 0
+  ) {
+    throw new Error(
+      `Invalid typography configuration. The 'primaryFontFamily' property ` +
+        `(if provided) must be a string containing font family names.`,
+    )
+  }
+}
+
+export function validateThemeConfig(theme?: ThemeConfigT): void {
+  if (typeof theme == 'undefined') return
+
+  validateType(theme.type)
   validatePalette(theme.palette)
+  validateTypography(theme.typography)
 }

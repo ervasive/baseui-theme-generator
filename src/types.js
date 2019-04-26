@@ -2,44 +2,42 @@
 export {ThemeT, ColorsT, TypographyT} from 'baseui/styles/types.js.flow'
 
 export type ThemeConfigT = {
-  palette: ThemeConfigPaletteT,
+  type?: ThemeConfigTypeT,
+  palette?: ThemeConfigPaletteT,
   typography?: ThemeConfigTypographyT,
+  overrides?: Function,
 }
+
+export type ThemeConfigTypeT = 'light' | 'dark'
+
+export type ThemeConfigPaletteT = {[string]: ThemeConfigColorT}
 
 export type ThemeConfigTypographyT = {
   primaryFontFamily?: string,
 }
 
-export type PaletteTypeT = 'light' | 'dark'
-
-export type ThemeConfigPaletteT = {
-  type: PaletteTypeT,
-  primary: ThemeConfigColorT,
-  negative: ThemeConfigColorT,
-  warning: ThemeConfigColorT,
-  positive: ThemeConfigColorT,
-  mono: ThemeConfigColorT,
-}
-
 export type ThemeConfigColorT =
   | string
   | {
-      '50': ?string,
-      '100': ?string,
-      '200': ?string,
-      '300': ?string,
+      '50'?: string,
+      '100'?: string,
+      '200'?: string,
+      '300'?: string,
       '400': string,
-      '500': ?string,
-      '600': ?string,
-      '700': ?string,
-      '800': ?string,
-      '900': ?string,
-      '1000': ?string,
-      contrast: void | number,
-      hueOffset: void | number,
+      '500'?: string,
+      '600'?: string,
+      '700'?: string,
+      '800'?: string,
+      '900'?: string,
+      '1000'?: string,
+      contrast?: number,
+      hueOffset?: number,
     }
 
 export type ThemePrimitivesT = {
+  // Theme type
+  type: ThemeConfigTypeT,
+
   // Primary Palette
   primary: string,
   primary50: string,
@@ -110,4 +108,7 @@ export type ThemePrimitivesT = {
   mono1000: string,
   white: string,
   black: string,
+
+  // Typography
+  primaryFontFamily: string,
 }

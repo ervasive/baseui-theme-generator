@@ -1,31 +1,17 @@
 // @flow
-import deepMerge from 'baseui/utils/deep-merge'
-import {validateThemeConfig} from './themeConfigValidator'
+import merge from 'lodash/merge'
+
 import {generatePrimitives} from './primitivesGenerator'
 import {generateColors} from './colorsGenerator'
 
 import {type ThemeConfigT, type ThemeT} from './types'
 
-export function generateTheme(
-  theme: ThemeConfigT,
-  overrides?: Function = () => {},
-): ThemeT | void {
-  validateThemeConfig(theme)
-
-  const themePrimitives = generatePrimitives(theme)
-  const {tokens, themed} = generateColors(themePrimitives, theme.palette.type)
-
-  let primaryFontFamily
-
-  if (!theme.typography || !theme.typography.primaryFontFamily) {
-    primaryFontFamily =
-      'system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif'
-  } else {
-    primaryFontFamily = theme.typography.primaryFontFamily
-  }
+export function generateTheme(config?: ThemeConfigT): ThemeT | void {
+  const primitives = generatePrimitives(config)
+  const {colors, themed} = generateColors(primitives)
 
   const result = {
-    colors: tokens,
+    colors,
     breakpoints: {
       small: 320,
       medium: 600,
@@ -33,85 +19,85 @@ export function generateTheme(
     },
     typography: {
       font100: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '11px',
         fontWeight: 'normal',
         lineHeight: '16px',
       },
       font200: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '12px',
         fontWeight: 'normal',
         lineHeight: '20px',
       },
       font250: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '12px',
         fontWeight: 'bold',
         lineHeight: '20px',
       },
       font300: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '14px',
         fontWeight: 'normal',
         lineHeight: '20px',
       },
       font350: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '14px',
         fontWeight: 'bold',
         lineHeight: '20px',
       },
       font400: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '16px',
         fontWeight: 'normal',
         lineHeight: '24px',
       },
       font450: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '16px',
         fontWeight: 'bold',
         lineHeight: '24px',
       },
       font500: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '20px',
         fontWeight: 'bold',
         lineHeight: '28px',
       },
       font600: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '24px',
         fontWeight: 'bold',
         lineHeight: '36px',
       },
       font700: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '32px',
         fontWeight: 'bold',
         lineHeight: '48px',
       },
       font800: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '40px',
         fontWeight: 'bold',
         lineHeight: '56px',
       },
       font900: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '52px',
         fontWeight: 'bold',
         lineHeight: '68px',
       },
       font1000: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '72px',
         fontWeight: 'normal',
         lineHeight: '96px',
       },
       font1100: {
-        fontFamily: primaryFontFamily,
+        fontFamily: primitives.primaryFontFamily,
         fontSize: '96px',
         fontWeight: 'normal',
         lineHeight: '116px',
@@ -231,11 +217,11 @@ export function generateTheme(
     zIndex: {
       modal: 2000,
     },
-    tooltip: {
-      backgroundColor: themed('mono900', 'mono200'),
-    },
   }
 
-  // $FlowFixMe
-  return deepMerge(result, overrides(result, themed))
+  if (config && config.overrides && typeof config.overrides == 'function') {
+    return merge(result, config.overrides(result))
+  } else {
+    return result
+  }
 }

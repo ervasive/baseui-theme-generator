@@ -1,4 +1,10 @@
-export const valid = {
+// @flow
+import {type ThemePrimitivesT} from '../../src/types'
+
+export const valid: ThemePrimitivesT = {
+  type: 'light',
+
+  primary: 'primary-value',
   primary50: 'primary-50-value',
   primary100: 'primary-100-value',
   primary200: 'primary-100-value',
@@ -11,6 +17,7 @@ export const valid = {
   primary900: 'primary-900-value',
   primary1000: 'primary-1000-value',
 
+  negative: 'negative-value',
   negative50: 'negative-50-value',
   negative100: 'negative-100-value',
   negative200: 'negative-100-value',
@@ -23,6 +30,7 @@ export const valid = {
   negative900: 'negative-900-value',
   negative1000: 'negative-1000-value',
 
+  warning: 'warning-value',
   warning50: 'warning-50-value',
   warning100: 'warning-100-value',
   warning200: 'warning-100-value',
@@ -35,6 +43,7 @@ export const valid = {
   warning900: 'warning-900-value',
   warning1000: 'warning-1000-value',
 
+  positive: 'positive-value',
   positive50: 'positive-50-value',
   positive100: 'positive-100-value',
   positive200: 'positive-100-value',
@@ -59,6 +68,11 @@ export const valid = {
   mono900: 'mono-900-value',
   mono1000: 'mono-1000-value',
 
+  black: 'black-value',
+  white: 'white-value',
+
   rating200: 'rating-200-value',
   rating400: 'rating-400-value',
+
+  primaryFontFamily: 'primary-font-family-value',
 }

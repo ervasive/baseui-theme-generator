@@ -1,13 +1,12 @@
 // @flow
 
-import {type ThemePrimitivesT, type PaletteTypeT, type ColorsT} from './types'
+import {type ThemePrimitivesT, type ColorsT} from './types'
 
 export function generateColors(
   primitives: ThemePrimitivesT,
-  type: PaletteTypeT,
-): {tokens: ColorsT, themed: Function} {
+): {colors: ColorsT, themed: Function} {
   const themed = (light: string, dark: ?string, fallback: ?string): string => {
-    const color = type === 'light' || !dark ? light : dark
+    const color = primitives.type === 'light' || !dark ? light : dark
 
     if (primitives.hasOwnProperty(color)) {
       return primitives[color]
@@ -18,7 +17,7 @@ export function generateColors(
 
   return {
     themed,
-    tokens: {
+    colors: {
       ...primitives,
 
       // Rating Palette,
@@ -344,6 +343,10 @@ export function generateColors(
 
       // Progress bar
       progressbarTrackFill: themed('mono900', 'mono100'),
+
+      // Tooltip
+      tooltipBackground: themed('mono900', 'mono200'),
+      tooltipText: themed('mono100', 'mono1000'),
     },
   }
 }
