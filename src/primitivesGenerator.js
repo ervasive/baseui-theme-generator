@@ -1,23 +1,33 @@
 // @flow
-
+import merge from 'lodash/merge'
 import {lighten, adjustHue} from 'polished'
+import {validateThemeConfig} from './themeConfigValidator'
+import {lightThemeConfig, darkThemeConfig} from './configs'
+
 import {
   type ThemeConfigT,
   type ThemeConfigColorT,
   type ThemePrimitivesT,
 } from './types'
 
-export function generatePrimitives(theme: ThemeConfigT): ThemePrimitivesT {
-  let primitives = {}
+export function generatePrimitives(config?: ThemeConfigT): ThemePrimitivesT {
+  validateThemeConfig(config)
 
-  // Refine type
-  const colorsMap: Map<string, ThemeConfigColorT> = new Map(
-    Object.keys(theme.palette)
-      .filter(colorName => !['type'].includes(colorName))
-      .map(colorName => [colorName, theme.palette[colorName]]),
+  const completeConfig = merge(
+    {},
+    config && config.type === 'dark' ? darkThemeConfig : lightThemeConfig,
+    config,
   )
 
-  for (let [colorName, color] of colorsMap.entries()) {
+  const primitives = {}
+  primitives.type = completeConfig.type
+
+  for (let colorName of Object.keys(completeConfig.palette)) {
+    const color =
+      config && config.palette && config.palette[colorName]
+        ? config.palette[colorName]
+        : completeConfig.palette[colorName]
+
     let colorVariants = generateVariants(color)
 
     if (typeof color === 'object') {
@@ -35,6 +45,8 @@ export function generatePrimitives(theme: ThemeConfigT): ThemePrimitivesT {
       }
     }
   }
+
+  primitives.primaryFontFamily = completeConfig.typography.primaryFontFamily
 
   return primitives
 }
@@ -66,8 +78,12 @@ export function generateVariants(color: ThemeConfigColorT): {[string]: string} {
     {index: 900, multiplier: -5},
     {index: 1000, multiplier: -6},
   ].map(({index, multiplier}) => {
-    const h = adjustHue(hueOffset * multiplier + 360, baseColor)
-    colors[index] = lighten(contrast * multiplier, String(h))
+    if (color[index]) {
+      colors[index] = color[index]
+    } else {
+      const h = adjustHue(hueOffset * multiplier + 360, baseColor)
+      colors[index] = lighten(contrast * multiplier, String(h))
+    }
   })
 
   return colors
